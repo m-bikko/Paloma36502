@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Minus, X, Edit3, Percent, StickyNote } from 'lucide-react';
+import { Plus, Minus, X, Percent, StickyNote } from 'lucide-react';
 import { CartItem } from '../types';
 
 interface CartPanelProps {
@@ -32,104 +32,104 @@ export default function CartPanel({ cartItems }: CartPanelProps) {
   };
 
   return (
-    <div className="w-80 glass-effect border-r border-white/10 flex flex-col h-full">
+    <div className="w-72 glass-effect border-r border-white/10 flex flex-col h-full">
       {/* Header */}
-      <div className="p-6 border-b border-white/10">
+      <div className="p-4 border-b border-white/10">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-white">Current Order</h2>
-          <div className="bg-primary-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-            {cartItems.length} items
+          <h2 className="text-lg font-bold text-white">Current Order</h2>
+          <div className="bg-primary-600 text-white px-2 py-1 rounded-full text-xs font-medium">
+            {cartItems.length}
           </div>
         </div>
-        <p className="text-gray-400 text-sm mt-1">Order #0.3.170.06122223</p>
+        <p className="text-gray-400 text-xs mt-1">Order #0.3.170.06122223</p>
       </div>
 
       {/* Cart Items */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 overflow-y-auto p-3 space-y-2">
         {cartItems.map((item, index) => (
-          <div key={item.id} className="glass-effect p-4 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-200">
+          <div key={item.id} className="glass-effect p-3 rounded-lg border border-white/10 hover:border-white/20 transition-all duration-200">
             {/* Item Header */}
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex-1">
+            <div className="flex items-start justify-between mb-2">
+              <div className="flex-1 min-w-0">
                 <div className="flex items-center space-x-2">
-                  <span className="bg-primary-600 text-white text-xs px-2 py-1 rounded-full font-medium">
+                  <span className="bg-primary-600 text-white text-xs px-1.5 py-0.5 rounded-full font-medium min-w-[18px] text-center">
                     {index + 1}
                   </span>
-                  <h3 className="text-white font-semibold">{item.product.name}</h3>
+                  <h3 className="text-white font-semibold text-sm truncate">{item.product.name}</h3>
                 </div>
-                <p className="text-gray-400 text-sm mt-1">${item.product.price.toFixed(2)} each</p>
+                <p className="text-gray-400 text-xs mt-0.5">${item.product.price.toFixed(2)} each</p>
               </div>
-              <button className="p-1 rounded-lg hover:bg-red-500/20 text-red-400 hover:text-red-300 transition-colors">
-                <X className="h-4 w-4" />
+              <button className="p-1 rounded hover:bg-red-500/20 text-red-400 hover:text-red-300 transition-colors ml-2">
+                <X className="h-3 w-3" />
               </button>
             </div>
 
             {/* Quantity Controls */}
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center space-x-2">
-                <button className="w-8 h-8 rounded-lg bg-dark-700 hover:bg-dark-600 text-white flex items-center justify-center transition-colors">
-                  <Minus className="h-4 w-4" />
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center space-x-1">
+                <button className="w-6 h-6 rounded bg-dark-700 hover:bg-dark-600 text-white flex items-center justify-center transition-colors">
+                  <Minus className="h-3 w-3" />
                 </button>
-                <span className="w-8 text-center text-white font-semibold">{item.quantity}</span>
-                <button className="w-8 h-8 rounded-lg bg-primary-600 hover:bg-primary-700 text-white flex items-center justify-center transition-colors">
-                  <Plus className="h-4 w-4" />
+                <span className="w-6 text-center text-white font-semibold text-sm">{item.quantity}</span>
+                <button className="w-6 h-6 rounded bg-primary-600 hover:bg-primary-700 text-white flex items-center justify-center transition-colors">
+                  <Plus className="h-3 w-3" />
                 </button>
               </div>
               <div className="text-right">
-                <div className="text-white font-bold">
+                <div className="text-white font-bold text-sm">
                   ${(item.product.price * item.quantity).toFixed(2)}
                 </div>
                 {item.discount && (
                   <div className="text-accent-400 text-xs">
-                    -{item.discount}% discount
+                    -{item.discount}%
                   </div>
                 )}
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               <button 
                 onClick={() => handleNoteEdit(item.id, item.note)}
-                className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-dark-700/50 hover:bg-dark-600/50 text-gray-300 hover:text-white text-xs transition-all duration-200 border border-white/10"
+                className="flex items-center space-x-1 px-2 py-1 rounded bg-dark-700/50 hover:bg-dark-600/50 text-gray-300 hover:text-white text-xs transition-all duration-200 border border-white/10"
               >
-                <StickyNote className="h-3 w-3" />
+                <StickyNote className="h-2.5 w-2.5" />
                 <span>Note</span>
               </button>
-              <button className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-dark-700/50 hover:bg-dark-600/50 text-gray-300 hover:text-white text-xs transition-all duration-200 border border-white/10">
-                <Percent className="h-3 w-3" />
-                <span>Discount</span>
+              <button className="flex items-center space-x-1 px-2 py-1 rounded bg-dark-700/50 hover:bg-dark-600/50 text-gray-300 hover:text-white text-xs transition-all duration-200 border border-white/10">
+                <Percent className="h-2.5 w-2.5" />
+                <span>%</span>
               </button>
             </div>
 
             {/* Note Display */}
             {item.note && !editingNote && (
-              <div className="mt-3 p-2 bg-dark-800/50 rounded-lg border border-white/10">
+              <div className="mt-2 p-2 bg-dark-800/50 rounded border border-white/10">
                 <p className="text-gray-300 text-xs">{item.note}</p>
               </div>
             )}
 
             {/* Note Editor */}
             {editingNote === item.id && (
-              <div className="mt-3 space-y-2">
+              <div className="mt-2 space-y-1">
                 <input
                   type="text"
                   value={noteText}
                   onChange={(e) => setNoteText(e.target.value)}
                   placeholder="Add a note..."
-                  className="w-full px-3 py-2 bg-dark-800/50 border border-white/10 rounded-lg text-white placeholder-gray-400 text-xs focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-2 py-1 bg-dark-800/50 border border-white/10 rounded text-white placeholder-gray-400 text-xs focus:outline-none focus:ring-1 focus:ring-primary-500"
                   autoFocus
                 />
-                <div className="flex space-x-2">
+                <div className="flex space-x-1">
                   <button
                     onClick={saveNote}
-                    className="px-3 py-1 bg-primary-600 hover:bg-primary-700 text-white text-xs rounded-lg transition-colors"
+                    className="px-2 py-1 bg-primary-600 hover:bg-primary-700 text-white text-xs rounded transition-colors"
                   >
                     Save
                   </button>
                   <button
                     onClick={() => setEditingNote(null)}
-                    className="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white text-xs rounded-lg transition-colors"
+                    className="px-2 py-1 bg-gray-600 hover:bg-gray-700 text-white text-xs rounded transition-colors"
                   >
                     Cancel
                   </button>
@@ -140,20 +140,20 @@ export default function CartPanel({ cartItems }: CartPanelProps) {
         ))}
 
         {cartItems.length === 0 && (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 bg-dark-700 rounded-full flex items-center justify-center mx-auto mb-4">
-              <StickyNote className="h-8 w-8 text-gray-500" />
+          <div className="text-center py-8">
+            <div className="w-12 h-12 bg-dark-700 rounded-full flex items-center justify-center mx-auto mb-3">
+              <StickyNote className="h-6 w-6 text-gray-500" />
             </div>
-            <p className="text-gray-400">No items in cart</p>
-            <p className="text-gray-500 text-sm mt-1">Add items from the menu</p>
+            <p className="text-gray-400 text-sm">No items in cart</p>
+            <p className="text-gray-500 text-xs mt-1">Add items from the menu</p>
           </div>
         )}
       </div>
 
       {/* Total Summary */}
       {cartItems.length > 0 && (
-        <div className="p-6 border-t border-white/10 space-y-3">
-          <div className="space-y-2">
+        <div className="p-4 border-t border-white/10 space-y-2">
+          <div className="space-y-1">
             <div className="flex justify-between text-gray-300 text-sm">
               <span>Subtotal</span>
               <span>${calculateTotal().toFixed(2)}</span>
@@ -163,7 +163,7 @@ export default function CartPanel({ cartItems }: CartPanelProps) {
               <span>${(calculateTotal() * 0.085).toFixed(2)}</span>
             </div>
             <div className="h-px bg-white/10"></div>
-            <div className="flex justify-between text-white font-bold text-lg">
+            <div className="flex justify-between text-white font-bold text-base">
               <span>Total</span>
               <span>${(calculateTotal() * 1.085).toFixed(2)}</span>
             </div>
