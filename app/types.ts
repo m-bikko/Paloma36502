@@ -11,6 +11,7 @@ export interface Category {
   id: string;
   name: string;
   icon?: string;
+  description?: string;
 }
 
 export interface CartItem {
@@ -26,5 +27,5 @@ export interface Order {
   items: CartItem[];
   total: number;
   createdAt: Date;
-  status: 'pending' | 'processing' | 'completed';
+  status: 'pending' | 'preparing' | 'ready' | 'completed';
 } 
